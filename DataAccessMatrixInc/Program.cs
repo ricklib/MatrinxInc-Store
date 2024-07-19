@@ -11,7 +11,9 @@ namespace DataAccessMatrixInc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<MatrixIncDbContext>();
+            builder.Services.AddDbContext<MatrixIncDbContext>(
+                options => options.UseSqlite("Data Source=MatrixInc.db"));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 

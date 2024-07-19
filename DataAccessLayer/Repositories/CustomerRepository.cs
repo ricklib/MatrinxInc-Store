@@ -18,9 +18,32 @@ namespace DataAccessLayer.Repositories
             _context = context;
         }
 
+        public void AddCustomer(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+        }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Customer> GetAllCustomers()
         {
             return _context.Customers.Include(c => c.Orders);
+        }
+
+        public Customer? GetCustomerById(int id)
+        {
+            return _context.Customers.Include(c => c.Orders).FirstOrDefault(c => c.Id == id);
+        }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _context.Customers.Update(customer);
+            _context.SaveChanges();
         }
     }
 }
