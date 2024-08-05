@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestMatrixInc
 {
-    public class Tests
+    public class CustomerRepositoryTests
     {
         private ServiceProvider _serviceProvider;
 
