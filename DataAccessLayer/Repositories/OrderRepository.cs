@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,39 @@ namespace DataAccessLayer.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
+        private readonly MatrixIncDbContext _context;
+
+        public OrderRepository(MatrixIncDbContext context)
+        {
+            _context = context;
+        }
+
         public void AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
         }
 
         public void DeleteOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _context.Orders.Include(o => o.Customer);
         }
 
         public Order? GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.Id == id);
         }
 
         public void UpdateOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Update(order);
+            _context.SaveChanges();
         }
     }
 }
