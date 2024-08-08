@@ -2,36 +2,7 @@ using DataAccessLayer;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Mime;
-using System.Text;
 using System.Text.Json.Serialization;
-
-static class ResultsExtensions
-{
-    public static IResult Html(this IResultExtensions resultExtensions, string html)
-    {
-        ArgumentNullException.ThrowIfNull(resultExtensions);
-
-        return new HtmlResult(html);
-    }
-}
-
-class HtmlResult : IResult
-{
-    private readonly string _html;
-
-    public HtmlResult(string html)
-    {
-        _html = html;
-    }
-
-    public Task ExecuteAsync(HttpContext httpContext)
-    {
-        httpContext.Response.ContentType = MediaTypeNames.Text.Html;
-        httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(_html);
-        return httpContext.Response.WriteAsync(_html);
-    }
-}
 
 namespace DataAccessMatrixInc
 {
@@ -41,15 +12,25 @@ namespace DataAccessMatrixInc
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // We gebruiken voor nu even een SQLite voor de database,
+            // omdat deze eenvoudig lokaal te gebruiken is en geen extra configuratie nodig heeft.
             builder.Services.AddDbContext<MatrixIncDbContext>(
                 options => options.UseSqlite("Data Source=MatrixInc.db"));
 
+            // voor development doeleinden, zodat we de database kunnen bekijken
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            // We registreren de repositories in de DI container
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-            // Prevents serialization from throwing an exception when it encounters circular references
-            builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            // Prevents serialization from throwing an exception when it encounters circular references and set pretty print for debugging
+            builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(
+                options => { 
+                    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; 
+                    options.SerializerOptions.WriteIndented = true; 
+                });            
 
             var app = builder.Build();
 
@@ -78,13 +59,14 @@ namespace DataAccessMatrixInc
             // Dit mag naar eigen inzicht worden aangepast
             //
             app.MapGet("/html", () => Results.Extensions.Html(@$"<!doctype html>
-<html>
-    <head><title>miniHTML</title></head>
-    <body>
-        <h1>Hello World</h1>
-        <p>The time on the server is {DateTime.Now:O}</p>
-    </body>
-</html>"));
+                        <html>
+                            <head><title>Overview 'get all' provided methods for: customers, orders, products, parts</title></head>
+                            <body>
+                                <h1>Methods:</h1>                                
+                                <p>Click <a href=""/customers"">here</a> to get all customers</p>
+                                <p>Click <a href=""/orders"">here</a> to get all orders</p>
+                            </body>
+                        </html>"));
             app.MapGet("/", () => "Hello World!");
             app.MapGet("/customers", (MatrixIncDbContext context) =>
             {
