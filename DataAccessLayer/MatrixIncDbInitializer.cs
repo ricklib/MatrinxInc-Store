@@ -22,7 +22,6 @@ namespace DataAccessLayer
             // - Denk aan namen van schepen
             // - Denk aan namen van vliegtuigen
             // - Denk aan namen van personages uit de matrix zoals trinity, neo, morpheus, agent smith, etc.
-
             var customers = new Customer[]
             {
                 new Customer { Name = "John Doe", Address = "123 Elm St" , Active=true},
@@ -47,6 +46,14 @@ namespace DataAccessLayer
                 new Product { Name = "Doohickey", Description = "Description Doohickey", Price = 29.99m }
             };
             context.Products.AddRange(products);
+
+            var parts = new Part[]
+            {
+                new Part { Name = "Part1", Description = "Description Part1"},
+                new Part { Name = "Part2", Description = "Description Part2"},
+                new Part { Name = "Part3", Description = "Description Part3"}
+            };
+            context.Parts.AddRange(parts);
 
             context.SaveChanges();
 
