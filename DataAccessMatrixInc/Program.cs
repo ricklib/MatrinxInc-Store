@@ -65,9 +65,11 @@ namespace DataAccessMatrixInc
                                 <h1>Methods:</h1>                                
                                 <p>Click <a href=""/customers"">here</a> to get all customers</p>
                                 <p>Click <a href=""/orders"">here</a> to get all orders</p>
+                                <p>Click <a href=""/products"">here</a> to get all orders</p>
+                                <p>Click <a href=""/parts"">here</a> to get all orders</p>
                             </body>
                         </html>"));
-            app.MapGet("/", () => "Hello World!");
+            app.MapGet("/", () => "Hello World! please browse to /html ");
             app.MapGet("/customers", (MatrixIncDbContext context) =>
             {
                 var repo = new CustomerRepository(context);
@@ -79,6 +81,18 @@ namespace DataAccessMatrixInc
                 var repo = new OrderRepository(context);
                 var orders = repo.GetAllOrders().ToList();
                 return orders;
+            });
+            app.MapGet("/products", (MatrixIncDbContext context) =>
+            {
+                var repo = new ProductRepository(context);
+                var products = repo.GetAllProducts().ToList();
+                return products;
+            });
+            app.MapGet("/parts", (MatrixIncDbContext context) =>
+            {
+                var repo = new PartRepository(context);
+                var parts = repo.GetAllParts().ToList();
+                return parts;
             });
 
             app.Run();
