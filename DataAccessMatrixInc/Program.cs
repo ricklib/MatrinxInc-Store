@@ -65,8 +65,8 @@ namespace DataAccessMatrixInc
                                 <h1>Methods:</h1>                                
                                 <p>Click <a href=""/customers"">here</a> to get all customers</p>
                                 <p>Click <a href=""/orders"">here</a> to get all orders</p>
-                                <p>Click <a href=""/products"">here</a> to get all orders</p>
-                                <p>Click <a href=""/parts"">here</a> to get all orders</p>
+                                <p>Click <a href=""/products"">here</a> to get all products</p>
+                                <p>Click <a href=""/parts"">here</a> to get all parts</p>
                             </body>
                         </html>"));
             app.MapGet("/", () => "Hello World! please browse to /html ");
