@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 DataAccessMatrixInc/MatrixInc.db
+/DataAccessMatrixInc/MatrixInc.db-shm
+/DataAccessMatrixInc/MatrixInc.db-wal
