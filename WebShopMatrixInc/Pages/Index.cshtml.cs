@@ -18,11 +18,4 @@ public class IndexModel : PageModel
     {
         Products = _productRepository.GetAllProducts();
     }
-    public string GetImageBase64(byte[] imageData)
-    {
-        if (imageData == null || imageData.Length == 0)
-            return string.Empty;
-    
-        return $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}";
-    }
 }

@@ -17,5 +17,13 @@ public class Part
     public byte[] Image { get; set; }
 
     public ICollection<Product> Products { get; } = new List<Product>();
+    
+    public string GetImageBase64()
+    {
+        if (Image == null || Image.Length == 0)
+            return string.Empty;
+    
+        return $"data:image/jpeg;base64,{Convert.ToBase64String(Image)}";
+    }
 }
 

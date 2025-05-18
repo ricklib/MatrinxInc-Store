@@ -23,7 +23,7 @@
                     <td>
                         @if (product.Image != null && product.Image.Length > 0)
                         {
-                            <img src="@Model.GetImageBase64(product.Image)" 
+                            <img src="@product.GetImageBase64()"
                                  alt="@product.Name" 
                                  style="max-width: 100px; max-height: 100px;" />
                         }
