@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayer.Interfaces;
+
+public interface IPartRepository
 {
-    public interface IPartRepository
-    {
-        public IEnumerable<Part> GetAllParts();
+    public IEnumerable<Part> GetAllParts();
 
-        public Part? GetPartById(int id);
+    public Part? GetPartById(int id);
 
-        public void AddPart(Part part);
+    public void AddPart(Part part);
 
-        public void UpdatePart(Part part);
+    public void UpdatePart(Part part);
 
-        public void DeletePart(Part part);
-    }
+    public void DeletePart(Part part);
 }
+

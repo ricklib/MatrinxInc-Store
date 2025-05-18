@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayer.Interfaces;
+
+public interface IOrderRepository
 {
-    public interface IOrderRepository
-    {
-        public IEnumerable<Order> GetAllOrders();
+    public IEnumerable<Order> GetAllOrders();
 
-        public Order? GetOrderById(int id);
+    public Order? GetOrderById(int id);
 
-        public void AddOrder(Order order);
+    public void AddOrder(Order order);
 
-        public void UpdateOrder(Order order);
+    public void UpdateOrder(Order order);
 
-        public void DeleteOrder(Order order);
-    }
+    public void DeleteOrder(Order order);
 }
+

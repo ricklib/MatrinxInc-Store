@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayer.Interfaces;
+
+public interface ICustomerRepository
 {
-    public interface ICustomerRepository
-    {
-        public IEnumerable<Customer> GetAllCustomers();
+    public IEnumerable<Customer> GetAllCustomers();
 
-        public Customer? GetCustomerById(int id);
+    public Customer? GetCustomerById(int id);
 
-        public void AddCustomer(Customer customer);
+    public void AddCustomer(Customer customer);
 
-        public void UpdateCustomer(Customer customer);
+    public void UpdateCustomer(Customer customer);
 
-        public void DeleteCustomer(Customer customer);
-    }
+    public void DeleteCustomer(Customer customer);
 }
+

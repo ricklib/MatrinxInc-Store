@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayer.Interfaces;
+
+public interface IProductRepository
 {
-    public interface IProductRepository
-    {
-        public IEnumerable<Product> GetAllProducts();
+    public IEnumerable<Product> GetAllProducts();
 
-        public Product? GetProductById(int id);
+    public Product? GetProductById(int id);
 
-        public void AddProduct(Product product);
+    public void AddProduct(Product product);
 
-        public void UpdateProduct(Product product);
+    public void UpdateProduct(Product product);
 
-        public void DeleteProduct(Product product);
-    }
+    public void DeleteProduct(Product product);
 }
+
