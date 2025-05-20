@@ -1,35 +1,37 @@
-﻿@page
-@model IndexModel
+﻿@page "/cart"
+@model CartViewModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Cart View Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Products</h1>
-    
-    <table class="table">
-        <thead>
+    @if (Model.Cart.Count != 0)
+    {
+        <h1 class="display-4">My Shopping Cart</h1>
+
+        <table class="table">
+            <thead>
             <tr>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
+            </thead>
+            <tbody>
+            @foreach (var product in Model.Cart)
             {
                 <tr>
                     <td>
                         @if (product.Image != null && product.Image.Length > 0)
                         {
                             <img src="@product.GetImageBase64()"
-                                 alt="@product.Name" 
-                                 style="max-width: 100px; max-height: 100px;" />
+                                 alt="@product.Name"
+                                 style="max-width: 100px; max-height: 100px;"/>
                         }
                     </td>
                     <td>
-                        <a asp-page="Product"
+                        <a asp-page="ProductView"
                            asp-route-id="@product.Id">
                             @product.Name
                         </a>
@@ -38,6 +40,14 @@
                     <td>@product.Price.ToString("C")</td>
                 </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <p1>Total price: @Model.TotalPrice</p1>
+        <button class="btn btn-primary">Go to Checkout</button>
+    }
+    else
+    {
+        <h1>Your shopping cart is empty!</h1>
+        <p>Add products to the shopping cart to view them here.</p>
+    }
 </div>
