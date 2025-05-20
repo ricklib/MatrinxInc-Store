@@ -1,0 +1,28 @@
+﻿@page "/product/{id:int}"
+@model ProductViewModel
+@{
+    ViewData["Title"] = Model.Product?.Name ?? "Product";
+}
+
+@if (Model.Product == null)
+{
+    <h2>Product not found</h2>
+}
+else
+{
+    <div class="product-details">
+        <h1>@Model.Product.Name</h1>
+        <img src="@Model.Product.GetImageBase64()" alt="@Model.Product.Name" style="max-width: 300px;" />
+        <p>Description: @Model.Product.Description</p>
+        <p>Price: @Model.Product.Price.ToString("C")</p>
+        <p>Amount</p>
+        
+        <form method="post">
+            <label for="quantity">Amount:</label>
+            <input type="number" name="Amount" id="amount" min="1" value=@Model.Amount />
+            
+            <input type="hidden" asp-for="Product.Id" />
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+}

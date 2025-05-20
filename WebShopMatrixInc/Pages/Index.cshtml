@@ -28,7 +28,12 @@
                                  style="max-width: 100px; max-height: 100px;" />
                         }
                     </td>
-                    <td>@product.Name</td>
+                    <td>
+                        <a asp-page="ProductView"
+                           asp-route-id="@product.Id">
+                            @product.Name
+                        </a>
+                    </td>
                     <td>@product.Description</td>
                     <td>@product.Price.ToString("C")</td>
                 </tr>

@@ -10,7 +10,15 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(30);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+        
         builder.Services.AddRazorPages();
 
         builder.Services.AddDbContext<MatrixIncDbContext>(
@@ -19,7 +27,8 @@ public class Program
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
+        builder.Services.AddScoped<IPartRepository, PartRepository>();
+        
         var app = builder.Build();
 
         if (!app.Environment.IsDevelopment())
@@ -43,6 +52,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        
+        app.UseSession();
 
         app.UseRouting();
 
