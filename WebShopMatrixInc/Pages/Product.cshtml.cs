@@ -14,11 +14,14 @@ public class ProductViewModel : PageModel
     public int Amount { get; set; } = 1;
 
     public Product Product { get; private set; }
+    [TempData]
+    public bool OrderPlaced { get; set; }
 
     public ProductViewModel(ILogger<ProductViewModel> logger, IProductRepository productService)
     {
         _logger = logger;
         _productRepository = productService;
+        OrderPlaced = false;
     }
 
     public void OnGet(int id)
@@ -39,6 +42,8 @@ public class ProductViewModel : PageModel
         HttpContext.Session.SetObjectAsJson("Cart", cart);
         
         _logger.LogInformation($"Added {Amount} of {product.Name} to cart");
+
+        OrderPlaced = true;
 
         return RedirectToPage(new { id = id });
     }

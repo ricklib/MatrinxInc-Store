@@ -15,7 +15,7 @@ public class Order
 
     public int CustomerId { get; set; }
     
-    public double Total { get; set; }
+    public decimal Total { get; set; }
     
     public Customer Customer { get; set; } = null!;
 

@@ -9,14 +9,25 @@
 @if (Model.CustomerOrders != null)
 {
     <h2>Order History</h2>
-    @foreach (var order in Model.CustomerOrders)
-    {
-        <div class="order">
-            <h4>Order ID: @order.Id</h4>
-            <p>Total: @order.Total</p>
-            <p>Date: @order.OrderDate.ToString("MM/dd/yyyy")</p>
-        </div>
-    }
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model.CustomerOrders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate.ToString()</td>
+                <td>@order.Total.ToString("C")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 }
 else
 {

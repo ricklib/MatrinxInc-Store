@@ -4,40 +4,73 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Products</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <div>
+                <h3>Filters</h3>
+                <form method="post">
+                    <div class="dropdown">
+                        <p>Category</p>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @Model.SelectedCategory
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button type="submit" name="SelectedCategory" value="All" class="dropdown-item">All</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="SelectedCategory" value="Widget" class="dropdown-item">Widgets</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="SelectedCategory" value="Gadget" class="dropdown-item">Gadgets</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="SelectedCategory" value="Doohickey" class="dropdown-item">Doohickeys</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h1 class="display-4">Products</h1>
     
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
-            {
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        @if (product.Image != null && product.Image.Length > 0)
-                        {
-                            <img src="@product.GetImageBase64()"
-                                 alt="@product.Name" 
-                                 style="max-width: 100px; max-height: 100px;" />
-                        }
-                    </td>
-                    <td>
-                        <a asp-page="Product"
-                           asp-route-id="@product.Id">
-                            @product.Name
-                        </a>
-                    </td>
-                    <td>@product.Description</td>
-                    <td>@product.Price.ToString("C")</td>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @if (product.Image != null && product.Image.Length > 0)
+                            {
+                                <img src="@product.GetImageBase64()"
+                                     alt="@product.Name" 
+                                     style="max-width: 100px; max-height: 100px;" />
+                            }
+                        </td>
+                        <td>
+                            <a asp-page="Product"
+                               asp-route-id="@product.Id">
+                                @product.Name
+                            </a>
+                        </td>
+                        <td>@product.Description</td>
+                        <td>@product.Price.ToString("C")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

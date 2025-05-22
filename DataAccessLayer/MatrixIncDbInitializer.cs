@@ -32,18 +32,18 @@ public static class MatrixIncDbInitializer
 
         var orders = new Order[]
         {
-            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01"), Total = 25.00},
-            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01"), Total = 50.00},
-            new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01"), Total = 75.00},
-            new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01"), Total = 100.00}
+            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01"), Total = 25.00m},
+            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01"), Total = 50.00m},
+            new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01"), Total = 75.00m},
+            new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01"), Total = 100.00m}
         };  
         context.Orders.AddRange(orders);
 
         var products = new Product[]
         {
-            new Product { Name = "Widget", Description = "Description Widget", Price = 9.99m, Image = File.ReadAllBytes("ImgPlaceholder/widget.jpg")},
-            new Product { Name = "Gadget", Description = "Description Gadget", Price = 19.99m, Image = File.ReadAllBytes("ImgPlaceholder/gadget.jpg")},
-            new Product { Name = "Doohickey", Description = "Description Doohickey", Price = 29.99m, Image = File.ReadAllBytes("ImgPlaceholder/doohickey.jpg")}
+            new Product { Name = "Widget", Description = "Description Widget", Price = 9.99m, Category = "Widget", Image = File.ReadAllBytes("ImgPlaceholder/widget.jpg")},
+            new Product { Name = "Gadget", Description = "Description Gadget", Price = 19.99m, Category = "Gadget", Image = File.ReadAllBytes("ImgPlaceholder/gadget.jpg")},
+            new Product { Name = "Doohickey", Description = "Description Doohickey", Price = 29.99m, Category = "Doohickey", Image = File.ReadAllBytes("ImgPlaceholder/doohickey.jpg")}
         };
         context.Products.AddRange(products);
 
