@@ -6,23 +6,19 @@
     ViewData["Title"] = "Order History";
 }
 
-@if (Model.Customer != null)
+@if (Model.CustomerOrders != null)
 {
-    <div class="text-center">
-        @foreach (var order in Model.Customer.Orders)
-        {
-            <p>@order.Id</p>
-            <p>@order.OrderDate</p>
-            
-            foreach (var product in order.Products)
-            {
-                <img src="@product.GetImageBase64()" alt="@product.Name"/>
-                <p>@product.Name</p>
-                <p>@product.Description</p>
-                <p>@product.Price</p>
-            }
-            
-            <p>Order total: @Model.OrderTotals[order.Id]</p>
-        }
-    </div>
+    <h2>Order History</h2>
+    @foreach (var order in Model.CustomerOrders)
+    {
+        <div class="order">
+            <h4>Order ID: @order.Id</h4>
+            <p>Total: @order.Total</p>
+            <p>Date: @order.OrderDate.ToString("MM/dd/yyyy")</p>
+        </div>
+    }
+}
+else
+{
+    <p>No orders found for the current customer.</p>
 }

@@ -32,10 +32,10 @@ public static class MatrixIncDbInitializer
 
         var orders = new Order[]
         {
-            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01")},
-            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01")},
-            new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01")},
-            new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01")}
+            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01"), Total = 25.00},
+            new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01"), Total = 50.00},
+            new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01"), Total = 75.00},
+            new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01"), Total = 100.00}
         };  
         context.Orders.AddRange(orders);
 

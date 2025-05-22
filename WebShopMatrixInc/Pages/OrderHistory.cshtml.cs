@@ -12,8 +12,7 @@ public class OrderHistoryModel : PageModel
     private ICustomerRepository _customerRepository;
 
     public int CustomerId { get; set; }
-    public Customer? Customer { get; set; }
-    public Dictionary<int, decimal> OrderTotals { get; set; }
+    public IEnumerable<Order> CustomerOrders { get; set; }
 
     public OrderHistoryModel(ILogger<OrderHistoryModel> logger, IOrderRepository orderRepository, ICustomerRepository customerRepository)
     {
@@ -32,11 +31,7 @@ public class OrderHistoryModel : PageModel
         }
         else
         {
-            Customer = _customerRepository.GetCustomerById(CustomerId);
-            OrderTotals = Customer.Orders.ToDictionary(
-                order => order.Id,
-                order => order.Products.Sum(product => product.Price)
-            );
+            CustomerOrders = _orderRepository.GetAllOrders().Where(o => o.CustomerId == CustomerId).ToList();
             return Page();
         }
     }

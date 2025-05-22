@@ -15,6 +15,8 @@ public class Order
 
     public int CustomerId { get; set; }
     
+    public double Total { get; set; }
+    
     public Customer Customer { get; set; } = null!;
 
     public ICollection<Product> Products { get; } = new List<Product>();
