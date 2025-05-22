@@ -1,0 +1,28 @@
+@page "/OrderHistory"
+@using DataAccessLayer.Models
+@model OrderHistoryModel
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+@if (Model.Customer != null)
+{
+    <div class="text-center">
+        @foreach (var order in Model.Customer.Orders)
+        {
+            <p>@order.Id</p>
+            <p>@order.OrderDate</p>
+            
+            foreach (var product in order.Products)
+            {
+                <img src="@product.GetImageBase64()" alt="@product.Name"/>
+                <p>@product.Name</p>
+                <p>@product.Description</p>
+                <p>@product.Price</p>
+            }
+            
+            <p>Order total: @Model.OrderTotals[order.Id]</p>
+        }
+    </div>
+}

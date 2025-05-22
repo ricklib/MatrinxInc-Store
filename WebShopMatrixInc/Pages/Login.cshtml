@@ -1,0 +1,18 @@
+﻿@page "/login"
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+<form method="post">
+    <label for="CustomerId">Account ID:</label>
+    <input type="number" name="CustomerId" id="CustomerId" required />
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@if (Model.InvalidId)
+{
+    <p>No account found for ID: @Model.CustomerId</p>
+}

@@ -2,30 +2,35 @@
 using DataAccessLayer.Models;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebShopMatrixInc.Pages;
 
 public class AccountModel : PageModel
 {
     private readonly ILogger<ProductViewModel> _logger;
-    private readonly CustomerRepository _customerRepository;
-    public Customer? Customer { get; set; } = new Customer();
+    private readonly ICustomerRepository _customerRepository;
+    public int? CustomerId { get; set; }
+    public Customer? Customer { get; set; }
 
-    public AccountModel(ILogger<ProductViewModel> logger, CustomerRepository customerRepository)
+    public AccountModel(ILogger<ProductViewModel> logger, ICustomerRepository customerRepository)
     {
         _logger = logger;
         _customerRepository = customerRepository;
+        CustomerId = -1;
     }
     
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        try
+        CustomerId = HttpContext.Session.GetInt32("CustomerId") ?? -1;
+        if (CustomerId == -1)
         {
-            Customer = _customerRepository.GetCustomerById(5);
+            return Redirect("/Login");
         }
-        catch (Exception e)
+        else
         {
-            _logger.LogError(e.Message);
+            Customer = _customerRepository.GetCustomerById(CustomerId.Value);
+            return Page();
         }
     }
 }

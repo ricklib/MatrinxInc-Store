@@ -1,7 +1,12 @@
 @page "/account"
+@using DataAccessLayer.Models
 @model AccountModel
 
 @{
-    ViewData["Title"] = "Product";
+    ViewData["Title"] = "Account";
 }
 
+@if (Model.Customer != null)
+{
+    <h1>Hallo, @Model.Customer.Name</h1>
+}
